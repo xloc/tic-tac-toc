@@ -52,7 +52,7 @@ int main(){
         printf("Player Wins\n");
         break;
     default:
-        printf("Game Ends in a draw");
+        printf("Game Ends in a draw\n");
     }
     
     return 0;
@@ -124,14 +124,14 @@ void playerMove(char board[3][3]){
     idx = getPositionFromUserInput() - 1;
     x = idx % 3;
     y = idx / 3;
-    while(isBoardEmptyAtPosition(board, x, y)){
-        printf("Position (%d,%d) is occupied, try another one: ");
+    while(!isBoardEmptyAtPosition(board, x, y)){
+        printf("Position (%d,%d) is occupied, try another one: ", x, y);
         idx = getPositionFromUserInput() - 1;
         x = idx % 3;
         y = idx / 3;
     }
 
-    board[x][y] = PLAYER_PIECE_SIGN;
+    board[y][x] = PLAYER_PIECE_SIGN;
 }
 
 void computerMove(char board[3][3]){
@@ -142,8 +142,8 @@ void computerMove(char board[3][3]){
         idx = getRand() * 9;
         x = idx % 3;
         y = idx / 3;
-    }while(isBoardEmptyAtPosition(board, x, y));
+    }while(!isBoardEmptyAtPosition(board, x, y));
     printf("Done\n");
 
-    board[x][y] = COMPUTER_PIECE_SIGN;
+    board[y][x] = COMPUTER_PIECE_SIGN;
 }
