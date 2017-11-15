@@ -2,6 +2,7 @@
 
 #define PLAYER_PIECE_SIGN 'x'
 #define COMPUTER_PIECE_SIGN 'o'
+#define EMPTY_SIGN '.'
 
 #define GAME_OVER_IN_DRAW 0
 #define GAME_OVER_PLAYER_WINS 1
@@ -64,4 +65,31 @@ void printBoard(char board[3][3]){
 
 void clearScreen(){
     printf("\n\n\n\n\n\n\n\n\n\n\n");
+}
+
+
+int emptySpaceCount(char* board){
+    int count = 0;
+    for(int i=0; i<9; i++){
+        if(board[i] == EMPTY_SIGN) count++;
+    }
+    return count;
+}
+
+
+int checkWin(char board[3][3], char sign){
+    if(
+        // Pieces in a row
+        (board[0][0] == sign && board[0][1] == sign && board[0][2] == sign) ||
+        (board[1][0] == sign && board[1][1] == sign && board[1][2] == sign) ||
+        (board[2][0] == sign && board[2][1] == sign && board[2][2] == sign) ||
+        // Pieces in a column
+        (board[0][0] == sign && board[1][0] == sign && board[2][0] == sign) ||
+        (board[0][1] == sign && board[1][1] == sign && board[2][1] == sign) ||
+        (board[0][2] == sign && board[1][2] == sign && board[2][2] == sign) ||
+        // Pieces in diagonal
+        (board[0][0] == sign && board[1][1] == sign && board[2][2] == sign) ||
+        (board[0][2] == sign && board[1][1] == sign && board[2][0] == sign)
+    ) return 1;
+    else return 0;
 }
