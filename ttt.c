@@ -135,15 +135,20 @@ void playerMove(char board[3][3]){
 }
 
 void computerMove(char board[3][3]){
-    printf("Computer is trying to take a move...");
-
-    int idx, x, y;
-    do{
-        idx = getRand() * 9;
-        x = idx % 3;
-        y = idx / 3;
-    }while(!isBoardEmptyAtPosition(board, x, y));
-    printf("Done\n");
-
-    board[y][x] = COMPUTER_PIECE_SIGN;
+    int emptyCount = 0, emptyIndexes[9];
+    for(int i=0; i<9; i++){
+        if( ((char*)board)[i] == EMPTY_SIGN ){
+            // Record empty cell index
+            emptyIndexes[emptyCount++] = i;
+        }
+    }
+    
+    int ridx;
+    // Evaluate random number for selecting an item from emptyIndexes
+    ridx = getRand() * emptyCount;
+    // Index the corresponding element  from emptyIndexes
+    // (which is the random empty position of chess board)
+    ridx = emptyIndexes[ridx];
+    // Flatten the 3x3 board array to 1x9, assign piece sign
+    ((char*)board)[ridx] = COMPUTER_PIECE_SIGN;
 }
