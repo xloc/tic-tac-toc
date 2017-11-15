@@ -13,8 +13,8 @@ void clearScreen();
 
 int emptySpaceCount(char board[3][3]);
 int checkWin(char board[3][3], char sign);
-int playerMove(char board[3][3]);
-int computerMove(char board[3][3]);
+void playerMove(char board[3][3]);
+void computerMove(char board[3][3]);
 
 
 int main(){
@@ -92,4 +92,41 @@ int checkWin(char board[3][3], char sign){
         (board[0][2] == sign && board[1][1] == sign && board[2][0] == sign)
     ) return 1;
     else return 0;
+}
+
+int getPositionFromUserInput(){
+    int input;
+
+    scanf("%d", &input);
+    while(
+        // Notice: there is a ! (NOT)
+        !(1 <= input && input <= 9)
+    ){
+        printf("\tInvalid input, try again: ");
+        scanf("%d", &input);
+    }
+
+    return input;
+}
+
+int isBoardEmptyAtPosition(char board[3][3], int x, int y){
+    return board[y][x] == EMPTY_SIGN;
+}
+
+void playerMove(char board[3][3]){
+    printf("Please take a move: ");
+
+    int idx, x, y;
+
+    idx = getPositionFromUserInput() - 1;
+    x = idx % 3;
+    y = idx / 3;
+    while(isBoardEmptyAtPosition(board, x, y)){
+        printf("Position (%d,%d) is occupied, try another one: ")
+        idx = getPositionFromUserInput() - 1;
+        x = idx % 3;
+        y = idx / 3;
+    }
+
+    board[x][y] = PLAYER_PIECE_SIGN;
 }
