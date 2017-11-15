@@ -116,19 +116,22 @@ int isBoardEmptyAtPosition(char board[3][3], int x, int y){
     return board[y][x] == EMPTY_SIGN;
 }
 
+// There is another approach to return values from a function
+// It is particularly useful when multiple values need returning
+void idx2xy(int idx, int *x, int *y){
+    *x = idx % 3;
+    *y = idx / 3;
+}
+
 void playerMove(char board[3][3]){
     printf("Please take a move: ");
 
-    int idx, x, y;
+    int x, y;
 
-    idx = getPositionFromUserInput() - 1;
-    x = idx % 3;
-    y = idx / 3;
+    idx2xy(getPositionFromUserInput() - 1, &x, &y);
     while(!isBoardEmptyAtPosition(board, x, y)){
         printf("Position (%d,%d) is occupied, try another one: ", x, y);
-        idx = getPositionFromUserInput() - 1;
-        x = idx % 3;
-        y = idx / 3;
+        idx2xy(getPositionFromUserInput() - 1, &x, &y);
     }
 
     board[y][x] = PLAYER_PIECE_SIGN;
