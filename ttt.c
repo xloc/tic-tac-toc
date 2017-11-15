@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "myRand.h"
 
 #define PLAYER_PIECE_SIGN 'x'
 #define COMPUTER_PIECE_SIGN 'o'
