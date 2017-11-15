@@ -12,7 +12,7 @@
 void printBoard(char board[3][3]);
 void clearScreen();
 
-int emptySpaceCount(char board[3][3]);
+int emptySpaceCount(char* board);
 int checkWin(char board[3][3], char sign);
 void playerMove(char board[3][3]);
 void computerMove(char board[3][3]);
@@ -24,7 +24,7 @@ int main(){
     printBoard(board);
 
     while(1){
-        if(emptySpaceCount(board) = 0) break;
+        if(emptySpaceCount(board) == 0) break;
         playerMove(board);
         clearScreen(); printBoard(board);
         if(checkWin(board, PLAYER_PIECE_SIGN)){
@@ -32,12 +32,12 @@ int main(){
             break;
         } 
 
-        if(emptySpaceCount(board) = 0) break;
+        if(emptySpaceCount(board) == 0) break;
         computerMove(board);
         clearScreen(); printBoard(board);
         if(checkWin(board, COMPUTER_PIECE_SIGN)){
             gameOverFlag = GAME_OVER_COMPUTER_WINS;
-            break
+            break;
         }
         
     }
@@ -123,7 +123,7 @@ void playerMove(char board[3][3]){
     x = idx % 3;
     y = idx / 3;
     while(isBoardEmptyAtPosition(board, x, y)){
-        printf("Position (%d,%d) is occupied, try another one: ")
+        printf("Position (%d,%d) is occupied, try another one: ");
         idx = getPositionFromUserInput() - 1;
         x = idx % 3;
         y = idx / 3;
