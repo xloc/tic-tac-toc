@@ -19,6 +19,8 @@ void computerMove(char board[3][3]);
 
 
 int main(){
+    initRandSeed();
+
     char board[3][3] = {"...","...","..."};
     int gameOverFlag = GAME_OVER_IN_DRAW;
     printBoard(board);
@@ -130,4 +132,18 @@ void playerMove(char board[3][3]){
     }
 
     board[x][y] = PLAYER_PIECE_SIGN;
+}
+
+void computerMove(char board[3][3]){
+    printf("Computer is trying to take a move...");
+
+    int idx, x, y;
+    do{
+        idx = getRand() * 9;
+        x = idx % 3;
+        y = idx / 3;
+    }while(isBoardEmptyAtPosition(board, x, y));
+    printf("Done\n");
+
+    board[x][y] = COMPUTER_PIECE_SIGN;
 }
