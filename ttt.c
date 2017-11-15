@@ -3,6 +3,10 @@
 #define PLAYER_PIECE_SIGN 'x'
 #define COMPUTER_PIECE_SIGN 'o'
 
+#define GAME_OVER_IN_DRAW 0
+#define GAME_OVER_PLAYER_WINS 1
+#define GAME_OVER_COMPUTER_WINS 2
+
 void printBoard(char board[3][3]);
 void clearScreen();
 
@@ -14,21 +18,37 @@ int computerMove(char board[3][3]);
 
 int main(){
     char board[3][3] = {"...","...","..."};
+    int gameOverFlag = GAME_OVER_IN_DRAW;
     printBoard(board);
 
-    while(emptySpaceCount(board) > 0){
+    while(1){
+        if(emptySpaceCount(board) = 0) break;
         playerMove(board);
+        clearScreen(); printBoard(board);
         if(checkWin(board, PLAYER_PIECE_SIGN)){
-            printf("Player wins\n");
-        }
+            gameOverFlag = GAME_OVER_PLAYER_WINS;
+            break;
+        } 
 
+        if(emptySpaceCount(board) = 0) break;
         computerMove(board);
+        clearScreen(); printBoard(board);
         if(checkWin(board, COMPUTER_PIECE_SIGN)){
-            printf("Computer wins\n");
+            gameOverFlag = GAME_OVER_COMPUTER_WINS;
+            break
         }
+        
+    }
 
-        clearScreen();
-        printBoard(board);
+    switch(gameOverFlag){
+    case GAME_OVER_COMPUTER_WINS:
+        printf("Computer Wins\n");
+        break;
+    case GAME_OVER_PLAYER_WINS:
+        printf("Player Wins\n");
+        break;
+    default:
+        print("Game Ends in a draw");
     }
     
     return 0;
