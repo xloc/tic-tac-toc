@@ -52,7 +52,7 @@ int main(){
         printf("Player Wins\n");
         break;
     default:
-        print("Game Ends in a draw");
+        printf("Game Ends in a draw");
     }
     
     return 0;
